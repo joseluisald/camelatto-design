@@ -5,6 +5,8 @@ import alpinejs from '@astrojs/alpinejs';
 import compress from 'astro-compress';
 
 export default defineConfig({
+  site: "https://demos.jlacode.com.br",
+  base: "/camelatto-design",
   vite: {
     plugins: [tailwindcss()],
     build: {
