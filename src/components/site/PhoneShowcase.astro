@@ -1,17 +1,52 @@
 ---
+import { ArrowUpRight } from '@lucide/astro';
 import ProjectPhone from './ProjectPhone.astro';
 import type { Project } from '@/utils/data';
 interface Props { projects: Project[]; }
 const { projects } = Astro.props;
 ---
-<div class="phone-showcase" role="group" aria-label="Prévias dos projetos" data-lenis-prevent-horizontal>
-    {projects.slice(0, 3).map((project, index) => <div class="phone-reveal" data-motion="reveal" data-motion-delay={index * 0.08}><ProjectPhone project={project} index={index} /></div>)}
+<div class="phone-showcase" role="group" aria-label="Projetos em destaque: passe o mouse ou use o teclado para ver os detalhes" data-motion="reveal">
+    <div class="phone-halo" aria-hidden="true"></div>
+    {projects.slice(0, 3).map((project, index) => <div class:list={['phone-position', `phone-position--${index + 1}`, { 'is-selected': index === 0 }]} :class={`{ 'is-selected': activeIndex === ${index} }`}>
+        <ProjectPhone project={project} index={index} showcase />
+    </div>)}
+    <div class="phone-caption" aria-hidden="true">
+        {projects.map((project, index) => <span x-show={`activeIndex === ${index}`} x-cloak={index !== 0}><span class="caption-id">{project.id}</span> {project.category}<ArrowUpRight size={13} /></span>)}
+    </div>
 </div>
-<p class="phone-showcase-hint">Selecione um dos celulares para explorar o projeto.</p>
 
 <style>
-    .phone-reveal { flex: 1; min-width: 0; max-width: 280px; }
-    .phone-showcase { display: flex; align-items: center; justify-content: center; gap: clamp(24px, 5vw, 72px); padding: 64px 48px; border-radius: 8px; background: radial-gradient(ellipse at center, color-mix(in srgb, var(--color-accent) 5%, var(--color-surface)), var(--color-surface) 70%); }
-    .phone-showcase-hint { color: var(--color-muted); font-size: 12px; text-align: center; margin-block: 16px 32px; }
-    @media (max-width: 1023px) { .phone-reveal { flex: 0 0 240px; scroll-snap-align: center; } .phone-showcase { justify-content: start; overflow-x: auto; gap: 24px; padding: 32px 24px; scroll-snap-type: x mandatory; scroll-padding-inline: 24px; scrollbar-width: thin; scrollbar-color: var(--color-accent) transparent; } }
+    .phone-showcase { position: relative; height: 670px; min-width: 0; overflow: clip; }
+    .phone-halo { position: absolute; width: 92%; aspect-ratio: 1; max-width: 580px; top: 92px; left: 50%; transform: translateX(-50%); border-radius: 50%; background: color-mix(in srgb, var(--color-accent) 8%, var(--color-background)); }
+    .phone-position { position: absolute; width: 280px; transform-origin: top center; opacity: 0.8; transition: opacity 220ms, filter 220ms; }
+    .phone-position.is-selected, .phone-position:focus-within { opacity: 1; z-index: 3; filter: drop-shadow(0 4px 8px #8f1b4112); }
+    .phone-position--1 { top: 16px; left: 50%; transform: translateX(-50%); z-index: 2; }
+    .phone-position--2 { top: 142px; left: 16%; transform: translateX(-50%) rotate(-11deg) scale(0.74); z-index: 1; }
+    .phone-position--3 { top: 100px; left: 84%; transform: translateX(-50%) rotate(11deg) scale(0.74); z-index: 1; }
+    .phone-caption { position: absolute; top: 612px; left: 50%; transform: translateX(-50%); max-width: 95%; white-space: nowrap; padding: 10px 16px; border-radius: 999px; background: var(--color-background); box-shadow: 0 3px 8px #0002; font-size: 12px; }
+    .phone-caption > span { display: flex; align-items: center; gap: 6px; }
+    .caption-id, .phone-caption svg { color: var(--color-accent); }
+    @media (min-width: 901px) and (max-width: 1100px) {
+        .phone-showcase { height: 610px; }
+        .phone-position--1 { transform: translateX(-50%) scale(0.85); }
+        .phone-position--2 { left: 17%; top: 122px; transform: translateX(-50%) rotate(-11deg) scale(0.59); }
+        .phone-position--3 { left: 83%; top: 90px; transform: translateX(-50%) rotate(11deg) scale(0.59); }
+        .phone-caption { top: 525px; }
+    }
+    @media (min-width: 768px) and (max-width: 900px) { .phone-showcase { max-width: 720px; width: 100%; margin-inline: auto; } }
+    @media (max-width: 767px) {
+        .phone-showcase { height: 430px; }
+        .phone-halo { top: 60px; width: 96%; }
+        .phone-position--1 { top: 8px; transform: translateX(-50%) scale(0.62); }
+        .phone-position--2 { left: 15%; top: 92px; transform: translateX(-50%) rotate(-11deg) scale(0.44); }
+        .phone-position--3 { left: 85%; top: 70px; transform: translateX(-50%) rotate(11deg) scale(0.44); }
+        .phone-caption { top: 382px; padding: 8px 12px; font-size: 11px; }
+    }
+    @media (max-width: 360px) {
+        .phone-showcase { height: 390px; }
+        .phone-position--1 { transform: translateX(-50%) scale(0.55); }
+        .phone-position--2 { top: 80px; transform: translateX(-50%) rotate(-11deg) scale(0.38); }
+        .phone-position--3 { top: 60px; transform: translateX(-50%) rotate(11deg) scale(0.38); }
+        .phone-caption { top: 344px; }
+    }
 </style>

@@ -6,10 +6,13 @@ export default function app() {
     let destroyed = false;
     return {
         menuOpen: false,
+        headerScrolled: false,
+        bannerTheme: 'light',
 
         init()
         {
             window.dataLayer = window.dataLayer || [];
+            this.bannerTheme = document.documentElement.dataset.bannerTheme === 'dark' ? 'dark' : 'light';
             initLenis();
             this.$nextTick(() => { if (!destroyed) cleanupMotion = initPageMotion(this.$el); });
         },
@@ -22,6 +25,13 @@ export default function app() {
 
         scrollToSection,
         scrollToTop,
+
+        setBannerTheme(theme) {
+            if (!['light', 'dark'].includes(theme)) return;
+            this.bannerTheme = theme;
+            document.documentElement.dataset.bannerTheme = theme;
+            try { localStorage.setItem('camelatto-banner-theme', theme); } catch { /* The theme also works without storage. */ }
+        },
 
         sendGtmWhatsappEvent()
         {

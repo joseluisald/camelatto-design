@@ -1,12 +1,12 @@
 ---
 import { ArrowUpRight, Layers, LayoutGrid, Route, Signal, BatteryFull } from '@lucide/astro';
 import type { Project } from '@/utils/data';
-interface Props { project: Project; index: number; }
-const { project, index } = Astro.props;
+interface Props { project: Project; index: number; showcase?: boolean; }
+const { project, index, showcase = false } = Astro.props;
 const icons = [Layers, LayoutGrid, Route];
 const Icon = icons[index % icons.length];
 ---
-<button type="button" class:list={['project-phone', `project-phone--${index + 1}`]} data-project-id={project.id} data-cursor="view" @click="openPreview($event.currentTarget.dataset.projectId)" aria-label={`Abrir prévia de ${project.title}`} aria-haspopup="dialog" aria-controls="project-preview">
+<a href={`${import.meta.env.BASE_URL}projetos/${project.slug}/`} class:list={['project-phone', `project-phone--${index + 1}`, { 'project-phone--showcase': showcase }]} data-project-id={project.id} data-cursor="view" @mouseenter={`selectProject(${index})`} @focus={`selectProject(${index})`} aria-label={`Ver estudo de caso de ${project.title}`}>
     <span class="device-body" aria-hidden="true">
         <span class="device-status"><span>9:41</span><span class="device-camera"></span><span class="device-indicators"><Signal size={12} /><BatteryFull size={15} /></span></span>
         <span class="device-screen">
@@ -33,7 +33,7 @@ const Icon = icons[index % icons.length];
         </span>
         <span class="device-home"><span></span></span>
     </span>
-</button>
+</a>
 
 <style>
     .project-phone { display: block; width: 100%; max-width: 280px; padding: 0; border: 0; border-radius: 44px; background: transparent; text-align: left; transform: rotate(-6deg) translateY(16px); transition: transform 250ms ease; scroll-snap-align: center; }
@@ -86,4 +86,6 @@ const Icon = icons[index % icons.length];
     .device-home { display: grid; place-items: center; flex: 0 0 18px; background: white; border-radius: 0 0 35px 35px; }
     .device-home > span { width: 70px; height: 3px; background: #202025; border-radius: 999px; }
     @media (max-width: 1023px) { .project-phone { max-width: none; width: 240px; flex: 0 0 240px; transform: none; } .project-phone--2, .project-phone--3 { transform: none; } .screen-title { font-size: 21px; } }
+    .project-phone--showcase { width: 280px; max-width: none; transform: none; }
+    .project-phone--showcase:hover, .project-phone--showcase:focus-visible { transform: none; }
 </style>

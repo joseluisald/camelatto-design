@@ -15,7 +15,6 @@
     {
       "id": "01", "slug": "projeto-01", "category": "Product Design", "year": "[Ano]",
       "title": "[Projeto 01 — App mobile]", "image": "mobile",
-      "preview": { "type": "iframe", "url": "" },
       "imageAlt": "Imagem ilustrativa: telas de onboarding de um aplicativo mobile",
       "description": "[Placeholder] Descreva em uma frase o problema central que o produto precisava resolver.",
       "contribution": "[Placeholder] Seu papel: pesquisa, fluxos, UI…",
@@ -27,7 +26,6 @@
     {
       "id": "02", "slug": "projeto-02", "category": "UI Design", "year": "[Ano]",
       "title": "[Projeto 02 — Plataforma web]", "image": "web",
-      "preview": { "type": "iframe", "url": "" },
       "imageAlt": "Imagem ilustrativa: painel web exibido em um notebook",
       "description": "[Placeholder] Qual dificuldade os usuários enfrentavam na plataforma?",
       "contribution": "[Placeholder] Seu papel no projeto.",
@@ -39,7 +37,6 @@
     {
       "id": "03", "slug": "projeto-03", "category": "UX Research", "year": "[Ano]",
       "title": "[Projeto 03 — Pesquisa UX]", "image": "research",
-      "preview": { "type": "pdf", "url": "" },
       "imageAlt": "Imagem ilustrativa: wireframes e diagrama de fluxo sobre uma mesa",
       "description": "[Placeholder] Qual pergunta a pesquisa precisava responder?",
       "contribution": "[Placeholder] Seu papel na pesquisa.",

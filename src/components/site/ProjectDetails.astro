@@ -1,0 +1,38 @@
+---
+import { ArrowRight } from '@lucide/astro';
+import type { Project } from '@/utils/data';
+interface Props { project: Project; index: number; stages: string[]; }
+const { project, index, stages } = Astro.props;
+---
+<article id={`project-details-${project.id}`} class="project-details" x-show={`activeIndex === ${index}`} x-cloak={index !== 0} aria-labelledby={`project-title-${project.id}`}>
+    <p class="eyebrow"><span>{project.id}</span> — {project.category}</p>
+    <h3 id={`project-title-${project.id}`}>{project.title}</h3>
+    <p class="project-summary">{project.description}</p>
+    <details class="project-facts" open>
+        <summary data-hover data-cursor-label="Detalhes">Detalhes do projeto<span class="details-toggle" aria-hidden="true">+</span></summary>
+        <dl>
+            <div><dt>Meu papel</dt><dd>{project.contribution}</dd></div>
+            <div><dt>Etapas</dt><dd><ul class="project-stages">{stages.map(stage => <li>{stage}</li>)}</ul></dd></div>
+            <div><dt>Métodos e ferramentas</dt><dd>{project.tags.join(' · ')}</dd></div>
+            <div><dt>Desafio</dt><dd>{project.challenge}</dd></div>
+        </dl>
+    </details>
+    <a class="button button--primary" href={`${import.meta.env.BASE_URL}projetos/${project.slug}/`} data-cursor="view">Ver estudo de caso<ArrowRight size={16} aria-hidden="true" /></a>
+</article>
+
+<style>
+    .project-details h3 { max-width: 430px; margin-top: 20px; font-size: clamp(1.8rem, 3vw, 2.6rem); line-height: 1.12; }
+    .project-details > .eyebrow > span { color: var(--color-accent); }
+    .project-summary { margin-top: 24px; color: var(--color-muted); font-size: 16px; line-height: 1.6; }
+    .project-facts { margin-block: 24px 32px; border-top: 1px solid var(--color-line); }
+    .project-facts summary { display: flex; align-items: center; justify-content: space-between; padding-block: 16px; cursor: pointer; font-size: 14px; list-style: none; }
+    .project-facts summary::-webkit-details-marker { display: none; }
+    .details-toggle { color: var(--color-accent); font-size: 18px; transition: transform 180ms; }
+    .project-facts[open] .details-toggle { transform: rotate(45deg); }
+    dl { display: grid; gap: 20px; margin: 0; }
+    dt { color: var(--color-muted); font: 10px/1.5 var(--font-mono); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 6px; }
+    dd { margin: 0; font-size: 14px; line-height: 1.6; }
+    .project-stages { display: flex; flex-wrap: wrap; gap: 6px; }
+    .project-stages li { padding: 3px 10px; background: color-mix(in srgb, var(--color-accent) 8%, var(--color-background)); color: var(--color-accent); border-radius: 999px; font-size: 11px; }
+    @media (max-width: 767px) { .project-details h3 { font-size: 28px; } .project-summary { margin-top: 16px; } }
+</style>

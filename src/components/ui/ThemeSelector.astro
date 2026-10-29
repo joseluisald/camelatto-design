@@ -1,0 +1,16 @@
+---
+import { Sun, Moon } from '@lucide/astro';
+---
+<div class="theme-selector" role="group" aria-label="Tema do banner">
+    <button type="button" @click="setBannerTheme('light')" :aria-pressed="bannerTheme === 'light'" aria-label="Usar banner claro" data-cursor-label="Claro"><Sun size={15} aria-hidden="true" /><span>Claro</span></button>
+    <button type="button" @click="setBannerTheme('dark')" :aria-pressed="bannerTheme === 'dark'" aria-label="Usar banner escuro" data-cursor-label="Escuro"><Moon size={15} aria-hidden="true" /><span>Escuro</span></button>
+</div>
+
+<style>
+    .theme-selector { display: inline-flex; gap: 2px; padding: 3px; border: 1px solid var(--header-line, var(--color-line)); border-radius: 999px; flex-shrink: 0; }
+    button { display: flex; align-items: center; justify-content: center; gap: 6px; min-width: 36px; min-height: 32px; padding: 6px 10px; border: 0; border-radius: 999px; background: transparent; color: var(--header-muted, var(--color-muted)); font-size: 11px; transition: color 160ms, background 160ms; }
+    button:hover { color: var(--header-accent, var(--color-accent)); }
+    :global(html:not([data-banner-theme="dark"])) button:first-child,
+    :global(html[data-banner-theme="dark"]) button:last-child { color: var(--header-active-fg, var(--color-background)); background: var(--header-active-bg, var(--color-foreground)); }
+    @media (max-width: 1100px) { button { padding: 6px 8px; } button > span { display: none; } }
+</style>

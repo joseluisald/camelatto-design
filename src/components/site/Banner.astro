@@ -25,3 +25,17 @@ const { settings, hero } = Astro.props;
     </div>
     </div>
 </section>
+
+<style>
+    :global(html[data-banner-theme="dark"]) .hero-shell {
+        --color-background: #0b1e29;
+        --color-foreground: #f4f1ea;
+        --color-muted: #f4f1eab3;
+        --color-accent: #d75a86;
+        --color-line: #f4f1ea33;
+        --color-surface: #132b37;
+        background: var(--color-background);
+        color: var(--color-foreground);
+    }
+    :global(html[data-banner-theme="dark"]) .hero-shell::before { content: ''; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(55vw 55vw at 82% 96%, #8f1b4138, transparent 60%), radial-gradient(40vw 40vw at 8% -10%, #8f1b4120, transparent 55%); }
+</style>

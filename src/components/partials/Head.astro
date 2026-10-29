@@ -21,7 +21,7 @@ const isProd = import.meta.env.PROD;
 
 const siteURL = Astro.site ?? Astro.url;
 const favicon = await getImage({ src: faviconSource, width: 64, format: 'png' });
-const faviconURL = new URL(favicon.src, siteURL).href;
+const faviconURL = favicon.src;
 
 const siteName = settings.name || settings.title || 'Design';
 const brandName = settings.brand || siteName;
@@ -56,6 +56,13 @@ const schemaOrg = {
 
 <head>
     <meta charset="UTF-8" />
+    <script is:inline>
+        try {
+            document.documentElement.dataset.bannerTheme = localStorage.getItem('camelatto-banner-theme') === 'dark' ? 'dark' : 'light';
+        } catch {
+            document.documentElement.dataset.bannerTheme = 'light';
+        }
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- SEO Básico -->
