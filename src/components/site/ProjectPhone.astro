@@ -1,0 +1,89 @@
+---
+import { ArrowUpRight, Layers, LayoutGrid, Route, Signal, BatteryFull } from '@lucide/astro';
+import type { Project } from '@/utils/data';
+interface Props { project: Project; index: number; }
+const { project, index } = Astro.props;
+const icons = [Layers, LayoutGrid, Route];
+const Icon = icons[index % icons.length];
+---
+<button type="button" class:list={['project-phone', `project-phone--${index + 1}`]} data-project-id={project.id} data-cursor="view" @click="openPreview($event.currentTarget.dataset.projectId)" aria-label={`Abrir prévia de ${project.title}`} aria-haspopup="dialog" aria-controls="project-preview">
+    <span class="device-body" aria-hidden="true">
+        <span class="device-status"><span>9:41</span><span class="device-camera"></span><span class="device-indicators"><Signal size={12} /><BatteryFull size={15} /></span></span>
+        <span class="device-screen">
+            <span class="screen-topline"><span class="screen-monogram">EC<span>®</span></span><span class="screen-project-number">{project.id}</span></span>
+            <span class="screen-category">{project.category}</span>
+            <span class="screen-title">{project.title}</span>
+            <span class:list={['screen-art', `screen-art--${index + 1}`]}>
+                {index === 0 && <>
+                    <span class="art-orbit art-orbit--one"></span><span class="art-orbit art-orbit--two"></span>
+                    <span class="art-icon"><Icon size={42} stroke-width={1.2} /></span>
+                    <span class="art-float art-float--top"><span></span><span></span></span>
+                    <span class="art-float art-float--bottom"><span></span><span></span></span>
+                </>}
+                {index === 1 && <>
+                    <span class="art-dashboard"><span class="art-dashboard-heading"><Icon size={18} /><span></span></span><span class="art-chart">{[40, 65, 48, 82, 62, 100].map(height => <span style={`height: ${height}%`}></span>)}</span><span class="art-dashboard-footer"><span></span><span></span></span></span>
+                </>}
+                {index === 2 && <>
+                    <span class="art-flow"><span class="art-flow-node"><Icon size={24} /></span><span class="art-flow-line"></span><span class="art-flow-row"><span></span><span></span></span><span class="art-flow-line"></span><span class="art-flow-node art-flow-node--end"><span></span><span></span></span></span>
+                </>}
+            </span>
+            <span class="screen-tags">{project.tags.slice(0, 2).map(tag => <span>{tag}</span>)}</span>
+            <span class="screen-action">Explorar projeto<ArrowUpRight size={17} /></span>
+            <span class="screen-pagination"><span class="is-current"></span><span></span><span></span></span>
+        </span>
+        <span class="device-home"><span></span></span>
+    </span>
+</button>
+
+<style>
+    .project-phone { display: block; width: 100%; max-width: 280px; padding: 0; border: 0; border-radius: 44px; background: transparent; text-align: left; transform: rotate(-6deg) translateY(16px); transition: transform 250ms ease; scroll-snap-align: center; }
+    .project-phone--2 { transform: translateY(-12px); }
+    .project-phone--3 { transform: rotate(6deg) translateY(16px); }
+    .project-phone:hover, .project-phone:focus-visible { transform: translateY(-18px); }
+    .project-phone:focus-visible { outline-offset: 8px; }
+    .device-body { display: flex; flex-direction: column; aspect-ratio: 0.49; padding: 6px; border: 2px solid #56565e; border-radius: 44px; background: #202025; box-shadow: 0 20px 30px -15px #16162170, 0 3px 0 #9999a0 inset; }
+    .device-status { position: relative; display: flex; flex: 0 0 38px; justify-content: space-between; align-items: center; padding: 0 18px; border-radius: 35px 35px 0 0; background: white; color: #202025; font: 600 10px var(--font-sans); }
+    .device-camera { position: absolute; left: 50%; top: 7px; transform: translateX(-50%); width: 76px; height: 23px; border-radius: 999px; background: #202025; }
+    .device-camera::after { content: ''; position: absolute; top: 8px; right: 10px; width: 7px; height: 7px; border: 2px solid #303441; border-radius: 50%; background: #151b28; }
+    .device-indicators { display: flex; align-items: center; gap: 4px; }
+    .device-screen { display: flex; flex: 1; min-height: 0; flex-direction: column; padding: 20px 20px 0; background: white; overflow: hidden; color: #202025; }
+    .screen-topline { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+    .screen-monogram { font: 600 19px var(--font-display); letter-spacing: -0.08em; color: var(--color-accent); }
+    .screen-monogram > span { vertical-align: super; font-size: 8px; margin-left: 2px; }
+    .screen-project-number { font: 10px var(--font-mono); color: var(--color-accent); padding: 5px 8px; border: 1px solid color-mix(in srgb, var(--color-accent) 20%, white); border-radius: 999px; }
+    .screen-category { font: 9px var(--font-mono); text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-accent); }
+    .screen-title { display: block; margin-top: 8px; font: 600 clamp(17px, 1.7vw, 23px)/1.08 var(--font-display); letter-spacing: -0.04em; min-height: 50px; }
+    .screen-art { position: relative; display: grid; flex: 1; min-height: 100px; place-items: center; margin-block: 10px 20px; background: color-mix(in srgb, var(--color-accent) 5%, white); border-radius: 18px; overflow: hidden; }
+    .art-orbit { position: absolute; width: 138px; height: 138px; border: 1px solid color-mix(in srgb, var(--color-accent) 15%, white); border-radius: 50%; }
+    .art-orbit--two { width: 185px; height: 185px; }
+    .art-icon { display: grid; place-items: center; width: 84px; height: 84px; border-radius: 24px; background: var(--color-accent); color: white; transform: rotate(-8deg); box-shadow: 0 10px 20px #8f1b4120; }
+    .art-float { position: absolute; display: grid; gap: 5px; width: 65px; padding: 10px; background: white; border: 1px solid #ece8e9; border-radius: 9px; box-shadow: 0 5px 10px #00000008; }
+    .art-float > span { height: 4px; background: #e6dde1; border-radius: 9px; }
+    .art-float > span:last-child { width: 65%; background: color-mix(in srgb, var(--color-accent) 35%, white); }
+    .art-float--top { top: 14%; right: 6%; transform: rotate(8deg); }
+    .art-float--bottom { bottom: 14%; left: 6%; transform: rotate(-6deg); }
+    .art-dashboard { display: grid; width: 82%; padding: 14px; gap: 16px; background: white; border: 1px solid #ece8e9; border-radius: 14px; transform: rotate(-4deg); box-shadow: 0 10px 20px #8f1b4110; }
+    .art-dashboard-heading { display: flex; align-items: center; justify-content: space-between; color: var(--color-accent); }
+    .art-dashboard-heading > span { width: 45px; height: 5px; background: #e6dde1; border-radius: 9px; }
+    .art-chart { display: flex; height: 70px; align-items: end; gap: 7px; border-bottom: 1px solid #e6dde1; }
+    .art-chart > span { flex: 1; border-radius: 4px 4px 0 0; background: color-mix(in srgb, var(--color-accent) 30%, white); }
+    .art-chart > span:nth-child(2n) { background: var(--color-accent); }
+    .art-dashboard-footer { display: flex; gap: 10px; }
+    .art-dashboard-footer > span { height: 5px; flex: 1; border-radius: 9px; background: #e6dde1; }
+    .art-flow { display: flex; flex-direction: column; align-items: center; width: 75%; }
+    .art-flow-node { display: flex; flex-direction: column; gap: 5px; align-items: center; justify-content: center; width: 56px; height: 48px; background: var(--color-accent); color: white; border-radius: 12px; }
+    .art-flow-line { width: 1px; height: 20px; background: color-mix(in srgb, var(--color-accent) 45%, white); }
+    .art-flow-row { display: flex; gap: 14px; width: 100%; }
+    .art-flow-row > span { height: 38px; flex: 1; border: 1px solid color-mix(in srgb, var(--color-accent) 25%, white); border-radius: 8px; background: white; }
+    .art-flow-node--end { width: 70px; height: 34px; background: white; border: 1px solid #e6dde1; }
+    .art-flow-node--end > span { width: 36px; height: 4px; background: #e6dde1; border-radius: 4px; }
+    .screen-tags { display: flex; gap: 5px; margin-bottom: 16px; flex-wrap: wrap; }
+    .screen-tags > span { padding: 3px 7px; border: 1px solid #e6dde1; border-radius: 999px; color: #6b6166; font: 8px var(--font-sans); }
+    .screen-action { display: flex; align-items: center; justify-content: space-between; gap: 6px; padding: 12px 14px; background: var(--color-accent); color: white; border-radius: 10px; font: 500 11px var(--font-sans); }
+    .screen-pagination { display: flex; justify-content: center; gap: 4px; padding-block: 12px; }
+    .screen-pagination > span { width: 4px; height: 4px; background: #ded5d9; border-radius: 50%; }
+    .screen-pagination > .is-current { width: 14px; border-radius: 4px; background: var(--color-accent); }
+    .device-home { display: grid; place-items: center; flex: 0 0 18px; background: white; border-radius: 0 0 35px 35px; }
+    .device-home > span { width: 70px; height: 3px; background: #202025; border-radius: 999px; }
+    @media (max-width: 1023px) { .project-phone { max-width: none; width: 240px; flex: 0 0 240px; transform: none; } .project-phone--2, .project-phone--3 { transform: none; } .screen-title { font-size: 21px; } }
+</style>

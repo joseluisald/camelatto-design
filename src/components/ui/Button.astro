@@ -1,0 +1,9 @@
+---
+import { ArrowUpRight } from '@lucide/astro';
+interface Props { href: string; variant?: 'primary' | 'secondary'; }
+const { href, variant = 'primary' } = Astro.props;
+---
+<a href={href} class:list={['button', `button--${variant}`]}>
+    <slot />
+    <ArrowUpRight size={16} aria-hidden="true" />
+</a>

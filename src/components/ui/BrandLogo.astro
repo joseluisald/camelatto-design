@@ -1,0 +1,8 @@
+---
+import { Image } from 'astro:assets';
+import horizontal from '@/assets/Prancheta 4@10x.png';
+import stacked from '@/assets/Prancheta 6@10x.png';
+interface Props { variant?: 'horizontal' | 'stacked'; }
+const { variant = 'horizontal' } = Astro.props;
+---
+<Image class:list={['brand-logo', `brand-logo--${variant}`]} src={variant === 'stacked' ? stacked : horizontal} alt="Camelatto Design" widths={variant === 'stacked' ? [400, 800] : [240, 480]} sizes={variant === 'stacked' ? '(max-width: 767px) 80vw, 400px' : '240px'} format="webp" loading={variant === 'horizontal' ? 'eager' : 'lazy'} />

@@ -1,0 +1,17 @@
+---
+import SocialLinks from '@/components/ui/SocialLinks.astro';
+import { ArrowUpRight } from '@lucide/astro';
+import type { SiteSettings } from '@/utils/data';
+import type portfolioData from '@/data/portfolio.json';
+interface Props { settings: SiteSettings; contact: typeof portfolioData.contact; }
+const { settings, contact } = Astro.props;
+---
+<section class="contact section-space" id="contato" aria-labelledby="contact-title">
+    <div class="container" data-motion="reveal">
+        <p class="eyebrow">{contact.eyebrow}</p>
+        <h2 id="contact-title">{contact.title} <span class="text-accent">{contact.highlight}</span></h2>
+        <p class="contact-description">{contact.description}</p>
+        <SocialLinks settings={settings} />
+        {settings.whatsapp && <a class="button button--light" href={settings.whatsapp} @click="sendGtmWhatsappEvent()" target="_blank" rel="noopener noreferrer">Conversar pelo WhatsApp<ArrowUpRight size={16} aria-hidden="true" /></a>}
+    </div>
+</section>

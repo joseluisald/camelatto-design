@@ -1,0 +1,10 @@
+---
+interface Props { stats: { value: string; label: string }[]; href: string; }
+const { stats, href } = Astro.props;
+---
+<div class="profile-stats" data-motion="reveal">
+    <a class="eyebrow" href={href} target="_blank" rel="noopener noreferrer">No Behance ↗</a>
+    <dl>
+        {stats.map(stat => <div><dt>{stat.label}</dt><dd>{stat.value}</dd></div>)}
+    </dl>
+</div>

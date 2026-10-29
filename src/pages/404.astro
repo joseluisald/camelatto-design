@@ -1,0 +1,18 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Header from '@/components/partials/Header.astro';
+import Footer from '@/components/partials/Footer.astro';
+import Button from '@/components/ui/Button.astro';
+import { getSettings } from '@/utils/data';
+const { settings, portfolio } = getSettings();
+---
+<Layout settings={{ ...settings, title: `Página não encontrada — ${settings.title}`, robots: 'noindex, nofollow' }}>
+    <Header settings={settings} navigation={portfolio.navigation} />
+    <main id="conteudo" class="container not-found" tabindex="-1">
+        <p class="eyebrow">Erro 404</p>
+        <h1>Essa página tomou <span class="text-accent">outro caminho.</span></h1>
+        <p>O endereço pode ter mudado. Você pode voltar e explorar os projetos.</p>
+        <Button href={import.meta.env.BASE_URL}>Voltar ao início</Button>
+    </main>
+    <Footer settings={settings} />
+</Layout>

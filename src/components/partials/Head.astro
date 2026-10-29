@@ -1,0 +1,86 @@
+---
+import { getImage } from 'astro:assets';
+import faviconSource from '@/assets/favicon.png';
+interface Props {
+    settings: {
+        name?: string;
+        brand?: string;
+        marca?: string;
+        title?: string;
+        description?: string;
+        keywords?: string;
+        robots?: string;
+        gtm?: string;
+        whatsapp?: string;
+    };
+    sharer?: string | { src: string };
+}
+
+const { settings, sharer } = Astro.props;
+const isProd = import.meta.env.PROD;
+
+const siteURL = Astro.site ?? Astro.url;
+const favicon = await getImage({ src: faviconSource, width: 64, format: 'png' });
+const faviconURL = new URL(favicon.src, siteURL).href;
+
+const siteName = settings.name || settings.title || 'Design';
+const brandName = settings.brand || siteName;
+const productName = settings.marca ? `${siteName} ${settings.marca}` : siteName;
+
+const title = settings.title ? settings.title : siteName;
+const description = settings.description || '';
+const keywords = settings.keywords || '';
+
+const robots = isProd
+    ? (settings.robots || 'index, follow')
+    : 'noindex, nofollow';
+
+const canonicalURL = new URL(Astro.url.pathname, siteURL);
+const canonicalHref = canonicalURL.href;
+
+const imageSrc = typeof sharer === 'string' ? sharer : sharer?.src;
+const imageUrl = imageSrc ? new URL(imageSrc, siteURL).href : undefined;
+
+const schemaOrg = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": productName,
+    "description": description,
+    "brand": {
+        "@type": "Brand",
+        "name": brandName
+    }
+};
+
+---
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- SEO Básico -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    {keywords && <meta name="keywords" content={keywords} />}
+    <meta name="robots" content={robots} />
+    <link rel="canonical" href={canonicalHref} />
+
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalHref} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    {imageUrl && <meta property="og:image" content={imageUrl} />}
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content={imageUrl ? 'summary_large_image' : 'summary'} />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    {imageUrl && <meta property="twitter:image" content={imageUrl} />}
+
+    <!-- Favicon & Icons -->
+    <link rel="icon" type="image/png" href={faviconURL} />
+
+    <!-- Schema.org (Structured Data para o Google) -->
+    <script type="application/ld+json" set:html={JSON.stringify(schemaOrg)} />
+</head>

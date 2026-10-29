@@ -1,0 +1,7 @@
+---
+interface Props { items: string[]; }
+const { items } = Astro.props;
+---
+<ul class="tags" aria-label="Métodos e competências">
+    {items.map(item => <li>{item}</li>)}
+</ul>

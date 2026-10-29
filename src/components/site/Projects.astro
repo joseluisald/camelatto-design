@@ -1,0 +1,19 @@
+---
+import ProjectCard from './ProjectCard.astro';
+import PhoneShowcase from './PhoneShowcase.astro';
+import ProjectPreviewModal from './ProjectPreviewModal.astro';
+import type { Project } from '@/utils/data';
+interface Props { projects: Project[]; }
+const { projects } = Astro.props;
+---
+<section class="projects container" id="projetos" aria-labelledby="projects-title" x-data="projectPreview">
+    <div class="projects-heading" data-motion="reveal">
+        <h2 id="projects-title">Projetos em destaque</h2>
+        <p class="eyebrow">{String(projects.length).padStart(2, '0')} estudos de caso</p>
+    </div>
+    <PhoneShowcase projects={projects} />
+    <div class="projects-grid">
+        {projects.map(project => <ProjectCard project={project} />)}
+    </div>
+    <ProjectPreviewModal />
+</section>

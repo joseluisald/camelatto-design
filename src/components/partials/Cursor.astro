@@ -1,0 +1,14 @@
+---
+---
+<div class="custom-pointer" x-data="cursor" x-cloak x-show="enabled && visible" :data-variant="variant" aria-hidden="true">
+    <div class="cursor-track" x-ref="ringTrack"><div class="cursor-ring" x-ref="ring"><span x-show="label" x-text="label"></span></div></div>
+    <div class="cursor-track" x-ref="dotTrack"><div class="cursor-dot" x-ref="dot"></div></div>
+</div>
+
+<style>
+    .custom-pointer { position: fixed; inset: 0; z-index: 500; pointer-events: none; }
+    .cursor-track { position: absolute; top: 0; left: 0; will-change: transform; }
+    .cursor-ring { display: flex; align-items: center; justify-content: center; width: 34px; height: 34px; transform: translate(-50%, -50%); border-radius: 50%; background: var(--color-accent); opacity: 0.28; }
+    .cursor-ring > span { color: white; font: 500 11px var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase; }
+    .cursor-dot { width: 7px; height: 7px; transform: translate(-50%, -50%); border-radius: 50%; background: var(--color-accent); }
+</style>

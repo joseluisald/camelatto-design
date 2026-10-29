@@ -1,0 +1,42 @@
+---
+import { Image } from 'astro:assets';
+import { ArrowLeft } from '@lucide/astro';
+import Layout from '@/layouts/Layout.astro';
+import Header from '@/components/partials/Header.astro';
+import Footer from '@/components/partials/Footer.astro';
+import Contact from '@/components/site/Contact.astro';
+import TagList from '@/components/ui/TagList.astro';
+import { getSettings } from '@/utils/data';
+import type { Project } from '@/utils/data';
+import { getProjectImage } from '@/utils/project-images';
+
+export function getStaticPaths() {
+    return getSettings().portfolio.projects.map(project => ({ params: { slug: project.slug }, props: { project } }));
+}
+interface Props { project: Project; }
+const { project } = Astro.props;
+const { settings, portfolio } = getSettings();
+const image = getProjectImage(project.image);
+const pageSettings = { ...settings, title: `${project.title} — ${settings.title}`, description: project.description };
+---
+<Layout settings={pageSettings} sharer={image}>
+    <Header settings={settings} navigation={portfolio.navigation} />
+    <main id="conteudo" tabindex="-1">
+        <article class="case-study container">
+            <a class="back-link" href={`${import.meta.env.BASE_URL}#projetos`}><ArrowLeft size={16} aria-hidden="true" />Voltar aos projetos</a>
+            <p class="eyebrow">{project.id} — {project.category} · {project.year}</p>
+            <h1>{project.title}</h1>
+            <p class="case-intro">{project.description}</p>
+            <p class="project-contribution">Contribuição: {project.contribution}</p>
+            <TagList items={project.tags} />
+            <Image class="case-cover" src={image} alt={project.imageAlt} widths={[480, 800, 1200]} sizes="(max-width: 767px) 100vw, 1200px" format="webp" loading="eager" />
+            <div class="case-content">
+                <section aria-labelledby="challenge"><p class="eyebrow">01 — Contexto</p><h2 id="challenge">O desafio</h2><p>{project.challenge}</p></section>
+                <section aria-labelledby="process"><p class="eyebrow">02 — Método</p><h2 id="process">O processo</h2><p>{project.process}</p></section>
+                <section aria-labelledby="solution"><p class="eyebrow">03 — Aprendizados</p><h2 id="solution">Solução e resultados</h2><p>{project.solution}</p></section>
+            </div>
+        </article>
+        <Contact settings={settings} contact={portfolio.contact} />
+    </main>
+    <Footer settings={settings} />
+</Layout>

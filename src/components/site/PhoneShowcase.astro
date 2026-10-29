@@ -1,0 +1,17 @@
+---
+import ProjectPhone from './ProjectPhone.astro';
+import type { Project } from '@/utils/data';
+interface Props { projects: Project[]; }
+const { projects } = Astro.props;
+---
+<div class="phone-showcase" role="group" aria-label="Prévias dos projetos" data-lenis-prevent-horizontal>
+    {projects.slice(0, 3).map((project, index) => <div class="phone-reveal" data-motion="reveal" data-motion-delay={index * 0.08}><ProjectPhone project={project} index={index} /></div>)}
+</div>
+<p class="phone-showcase-hint">Selecione um dos celulares para explorar o projeto.</p>
+
+<style>
+    .phone-reveal { flex: 1; min-width: 0; max-width: 280px; }
+    .phone-showcase { display: flex; align-items: center; justify-content: center; gap: clamp(24px, 5vw, 72px); padding: 64px 48px; border-radius: 8px; background: radial-gradient(ellipse at center, color-mix(in srgb, var(--color-accent) 5%, var(--color-surface)), var(--color-surface) 70%); }
+    .phone-showcase-hint { color: var(--color-muted); font-size: 12px; text-align: center; margin-block: 16px 32px; }
+    @media (max-width: 1023px) { .phone-reveal { flex: 0 0 240px; scroll-snap-align: center; } .phone-showcase { justify-content: start; overflow-x: auto; gap: 24px; padding: 32px 24px; scroll-snap-type: x mandatory; scroll-padding-inline: 24px; scrollbar-width: thin; scrollbar-color: var(--color-accent) transparent; } }
+</style>

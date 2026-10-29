@@ -1,0 +1,33 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Header from "@/components/partials/Header.astro";
+import Banner from "@/components/site/Banner.astro";
+import Footer from "@/components/partials/Footer.astro";
+import Projects from '@/components/site/Projects.astro';
+import Approach from '@/components/site/Approach.astro';
+import Gallery from '@/components/site/Gallery.astro';
+import About from '@/components/site/About.astro';
+import Contact from '@/components/site/Contact.astro';
+import { projectImages } from '@/utils/project-images';
+import { getSettings } from "@/utils/data.ts";
+
+const { settings, portfolio } = getSettings();
+---
+
+<Layout
+        settings={settings}
+        sharer={projectImages.mobile}
+>
+    <Header settings={settings} navigation={portfolio.navigation} />
+
+    <main id="conteudo" tabindex="-1">
+        <Banner settings={settings} hero={portfolio.hero} />
+        <Projects projects={portfolio.projects} />
+        <Approach approach={portfolio.approach} />
+        <Gallery gallery={portfolio.gallery} />
+        <About about={portfolio.about} settings={settings} />
+        <Contact settings={settings} contact={portfolio.contact} />
+    </main>
+
+    <Footer settings={settings} />
+</Layout>

@@ -1,0 +1,22 @@
+---
+import SectionHeading from '@/components/ui/SectionHeading.astro';
+import BrandLogo from '@/components/ui/BrandLogo.astro';
+import ProfileStats from '@/components/ui/ProfileStats.astro';
+import type { SiteSettings } from '@/utils/data';
+import type portfolioData from '@/data/portfolio.json';
+interface Props { about: typeof portfolioData.about; settings: SiteSettings; }
+const { about, settings } = Astro.props;
+---
+<section class="about section-border section-space" id="sobre" aria-labelledby="about-title">
+    <div class="container about-grid">
+        <div class="about-image" data-motion="scale">
+            {about.image ? <img src={about.image} alt={about.imageAlt} loading="lazy" width="600" height="750" /> : <BrandLogo variant="stacked" />}
+        </div>
+        <div class="about-copy">
+            <SectionHeading eyebrow={about.eyebrow} title={about.title} id="about-title" />
+            <div class="about-paragraphs" data-motion="reveal">{about.paragraphs.map(p => <p>{p}</p>)}</div>
+            <ProfileStats stats={about.stats} href={settings.behance} />
+            <ul class="skills-list" data-motion="reveal">{about.skills.map(skill => <li>{skill}</li>)}</ul>
+        </div>
+    </div>
+</section>

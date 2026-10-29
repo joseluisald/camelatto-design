@@ -1,0 +1,24 @@
+---
+import Head from '../components/partials/Head.astro';
+import Cursor from '@/components/partials/Cursor.astro';
+
+import '../styles/global.css';
+import type { SiteSettings } from '@/utils/data';
+
+interface Props {
+    settings: SiteSettings;
+    sharer?: string | { src: string };
+}
+
+const { settings, sharer } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <Head settings={settings} sharer={sharer} />
+
+    <body class="" x-data="app">
+        <slot />
+        <Cursor />
+    </body>
+</html>

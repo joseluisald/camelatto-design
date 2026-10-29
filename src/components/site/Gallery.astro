@@ -1,0 +1,25 @@
+---
+import SectionHeading from '@/components/ui/SectionHeading.astro';
+import type portfolioData from '@/data/portfolio.json';
+interface Props { gallery: typeof portfolioData.gallery; }
+const { gallery } = Astro.props;
+const categories = ['Todos', ...new Set(gallery.items.map(item => item.category))];
+---
+<section class="gallery section-border section-space" aria-labelledby="gallery-title" x-data="{ category: 'Todos' }">
+    <div class="container">
+        <div class="gallery-heading">
+            <SectionHeading eyebrow={gallery.eyebrow} title={gallery.title} id="gallery-title" />
+            <div class="gallery-filters" role="group" aria-label="Filtrar por categoria" data-motion="reveal">
+                {categories.map((category, i) => <button type="button" class:list={['filter-button', { 'is-active': i === 0 }]} @click={`category = ${JSON.stringify(category)}`} :class={`{ 'is-active': category === ${JSON.stringify(category)} }`} aria-pressed={i === 0 ? 'true' : 'false'} :aria-pressed={`category === ${JSON.stringify(category)}`}>{category}</button>)}
+            </div>
+        </div>
+        <div class="gallery-grid" aria-live="polite" aria-atomic="false">
+            {gallery.items.map((item, index) => <article class="gallery-card" data-motion="reveal" data-motion-delay={(index % 3) * 0.08} x-show={`category === 'Todos' || category === ${JSON.stringify(item.category)}`}>
+                <div class="gallery-image">
+                    {item.image ? <img src={item.image} alt={item.alt || item.title} loading="lazy" width="600" height="600" /> : <span class="placeholder-label">[Imagem do projeto]</span>}
+                </div>
+                <h3>{item.title}</h3><p class="eyebrow">{item.category}</p>
+            </article>)}
+        </div>
+    </div>
+</section>

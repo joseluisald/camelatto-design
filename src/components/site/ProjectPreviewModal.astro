@@ -1,0 +1,73 @@
+---
+import { X, ArrowLeft, ArrowRight, ExternalLink, Smartphone } from '@lucide/astro';
+---
+<dialog id="project-preview" class="project-preview" x-ref="previewDialog" data-lenis-prevent aria-labelledby="preview-title" @close="onPreviewClosed()" @click="closeOnBackdrop($event)">
+    <div class="preview-toolbar">
+        <div class="preview-title-group"><p class="eyebrow" x-text="activeProject?.category"></p><h2 id="preview-title" x-text="activeProject?.title"></h2></div>
+        <button class="preview-icon-button" type="button" @click="closePreview()" aria-label="Fechar prévia" autofocus><X size={20} aria-hidden="true" /></button>
+    </div>
+    <div class="preview-stage">
+        <div class="preview-phone">
+            <div class="preview-device-top" aria-hidden="true"><span>9:41</span><span class="preview-island"></span><span>••• ▰</span></div>
+            <div class="preview-screen">
+                <template x-if="previewUrl">
+                    <iframe :src="previewUrl" :title="'Prévia de ' + activeProject?.title" @load="previewLoaded()" allow="fullscreen" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+                </template>
+                <div class="preview-loading" x-cloak x-show="previewLoading && !previewSlow" role="status"><span class="preview-spinner" aria-hidden="true"></span>Carregando prévia…</div>
+                <div class="preview-empty" x-show="!previewUrl">
+                    <Smartphone size={36} stroke-width={1.3} aria-hidden="true" />
+                    <p class="eyebrow" x-text="activeProject?.category"></p>
+                    <h3>Prévia em breve</h3>
+                    <p>Enquanto isso, conheça os detalhes deste projeto no estudo de caso.</p>
+                    <a class="button button--primary" :href="caseUrl" target="_blank" rel="noopener noreferrer">Ver estudo de caso<ExternalLink size={14} aria-hidden="true" /></a>
+                </div>
+            </div>
+            <div class="preview-device-bottom" aria-hidden="true"><span></span></div>
+        </div>
+    </div>
+    <p class="preview-slow" x-cloak x-show="previewSlow" role="status">A prévia está demorando? Você também pode <a :href="previewUrl" target="_blank" rel="noopener noreferrer">abrir em outra aba ↗</a>.</p>
+    <div class="preview-navigation">
+        <button class="preview-icon-button" type="button" @click="movePreview(-1)" aria-label="Projeto anterior"><ArrowLeft size={18} aria-hidden="true" /></button>
+        <span class="eyebrow" aria-live="polite" x-text="`${currentIndex + 1} / ${projects.length}`"></span>
+        <a class="preview-external" x-show="previewUrl" :href="previewUrl" target="_blank" rel="noopener noreferrer">Abrir prévia<ExternalLink size={13} aria-hidden="true" /></a>
+        <button class="preview-icon-button" type="button" @click="movePreview(1)" aria-label="Próximo projeto"><ArrowRight size={18} aria-hidden="true" /></button>
+    </div>
+</dialog>
+
+<style>
+    .project-preview { position: fixed; inset: 0; width: min(620px, calc(100% - 24px)); max-height: calc(100dvh - 24px); margin: auto; padding: 0; border: 1px solid var(--color-line); border-radius: 18px; background: var(--color-background); color: var(--color-foreground); overflow-y: auto; box-shadow: 0 24px 100px #0004; }
+    .project-preview::backdrop { background: #101019b8; backdrop-filter: blur(8px); }
+    .preview-toolbar { display: flex; justify-content: space-between; align-items: center; gap: 20px; padding: 18px 24px; border-bottom: 1px solid var(--color-line); }
+    .preview-title-group { min-width: 0; }
+    .preview-title-group h2 { margin-top: 4px; font-size: 20px; letter-spacing: -0.03em; }
+    .preview-icon-button { flex-shrink: 0; display: inline-grid; place-items: center; width: 40px; height: 40px; border: 1px solid var(--color-line); border-radius: 50%; background: transparent; }
+    .preview-icon-button:hover { background: var(--color-foreground); color: var(--color-background); }
+    .preview-stage { display: flex; justify-content: center; padding: 24px; background: var(--color-surface); }
+    .preview-phone { display: flex; flex-direction: column; width: min(390px, 100%); height: min(690px, calc(100dvh - 235px)); min-height: 260px; border: 7px solid #202025; border-radius: 42px; overflow: hidden; background: white; box-shadow: 0 14px 35px #0002, 0 0 0 1px #6c6c74; }
+    .preview-device-top { position: relative; display: flex; align-items: center; justify-content: space-between; flex: 0 0 38px; padding: 0 22px; font-size: 11px; font-weight: 600; color: #202025; background: white; }
+    .preview-island { position: absolute; top: 8px; left: 50%; transform: translateX(-50%); width: 90px; height: 24px; border-radius: 999px; background: #202025; }
+    .preview-screen { position: relative; flex: 1; min-height: 0; overflow: auto; }
+    .preview-screen iframe { display: block; width: 100%; height: 100%; border: 0; background: white; }
+    .preview-device-bottom { display: grid; place-items: center; flex: 0 0 22px; background: white; }
+    .preview-device-bottom span { width: 110px; height: 4px; border-radius: 999px; background: #202025; }
+    .preview-empty { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; min-height: 100%; padding: 28px 22px; text-align: center; color: var(--color-foreground); }
+    .preview-empty > svg { color: var(--color-accent); }
+    .preview-empty h3 { font-size: 28px; }
+    .preview-empty > p:not(.eyebrow) { max-width: 260px; font-size: 14px; color: var(--color-muted); }
+    .preview-empty .button { font-size: 12px; }
+    .preview-loading { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; pointer-events: none; background: white; font-size: 13px; color: var(--color-muted); }
+    .preview-spinner { width: 24px; height: 24px; border: 2px solid var(--color-line); border-top-color: var(--color-accent); border-radius: 50%; animation: spin 800ms linear infinite; }
+    .preview-navigation { display: flex; gap: 16px; justify-content: center; align-items: center; padding: 14px 24px; border-top: 1px solid var(--color-line); }
+    .preview-external { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; }
+    .preview-external:hover, .preview-slow a { color: var(--color-accent); }
+    .preview-slow { padding: 12px 24px; font-size: 12px; text-align: center; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    @media (max-width: 480px) {
+        .project-preview { width: calc(100% - 16px); max-height: calc(100dvh - 16px); border-radius: 14px; }
+        .preview-toolbar { padding: 12px 16px; }
+        .preview-title-group h2 { font-size: 17px; }
+        .preview-stage { padding: 16px 12px; }
+        .preview-phone { height: min(690px, calc(100dvh - 205px)); border-width: 5px; border-radius: 34px; }
+        .preview-navigation { padding: 10px 16px; gap: 12px; }
+    }
+</style>

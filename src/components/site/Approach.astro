@@ -1,0 +1,17 @@
+---
+import SectionHeading from '@/components/ui/SectionHeading.astro';
+import type portfolioData from '@/data/portfolio.json';
+interface Props { approach: typeof portfolioData.approach; }
+const { approach } = Astro.props;
+---
+<section class="approach section-border section-space" aria-labelledby="approach-title">
+    <div class="container approach-grid">
+        <SectionHeading eyebrow={approach.eyebrow} title={approach.title} id="approach-title"><p>{approach.description}</p></SectionHeading>
+        <ol class="process-list">
+            {approach.steps.map((step, i) => <li data-motion="reveal" data-motion-delay={i * 0.06}>
+                <span class="step-number eyebrow">{String(i + 1).padStart(2, '0')}</span>
+                <h3>{step.title}</h3><p>{step.description}</p>
+            </li>)}
+        </ol>
+    </div>
+</section>

@@ -1,0 +1,27 @@
+---
+import Button from '@/components/ui/Button.astro';
+import SocialLinks from '@/components/ui/SocialLinks.astro';
+import HeroSymbols from './HeroSymbols.astro';
+import type { SiteSettings } from '@/utils/data';
+import type portfolioData from '@/data/portfolio.json';
+interface Props { settings: SiteSettings; hero: typeof portfolioData.hero; }
+const { settings, hero } = Astro.props;
+---
+
+<section class="hero-shell" id="hero" aria-labelledby="hero-title">
+    <HeroSymbols />
+    <div class="hero container">
+    <p class="eyebrow hero-meta" data-motion="down">{settings.role}<span aria-hidden="true"> — </span>{settings.location}</p>
+    <h1 id="hero-title" data-motion="reveal" data-motion-delay="0.08">{hero.title} <span class="text-accent">{hero.highlight}</span></h1>
+    <div class="hero-bottom">
+        <p class="hero-description" data-motion="reveal" data-motion-delay="0.16">{hero.description}</p>
+        <div class="hero-actions" data-motion="reveal" data-motion-delay="0.24">
+            <div class="button-group">
+                <Button href="#projetos">{hero.primaryCta}</Button>
+                <Button href="#contato" variant="secondary">{hero.secondaryCta}</Button>
+            </div>
+            <SocialLinks settings={settings} compact />
+        </div>
+    </div>
+    </div>
+</section>
