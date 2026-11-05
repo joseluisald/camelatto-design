@@ -6,14 +6,11 @@
     "node": "22.23.4"
   },
   "scripts": {
-    "dev": "astro dev",
-    "build": "astro build",
+    "dev": "node scripts/front.mjs dev",
+    "build": "node scripts/front.mjs build",
     "preview": "astro preview",
     "astro": "astro",
-    "admin:dev": "npm --prefix admin run dev",
-    "admin:build": "npm --prefix admin run build",
-    "admin:worker": "npm --prefix admin run publish:worker",
-    "test:deploy": "node --test deploy/*.test.mjs"
+    "test:deploy": "node --test scripts/*.test.mjs"
   },
   "dependencies": {
     "@alpinejs/collapse": "^3.17.5",

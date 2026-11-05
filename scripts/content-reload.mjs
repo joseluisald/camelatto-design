@@ -9,7 +9,7 @@ export function contentReload() {
     name: 'camelatto:published-content',
     apply: 'serve',
     configureServer(server) {
-      const directory = fileURLToPath(new URL('../admin/storage/', import.meta.url));
+      const directory = fileURLToPath(new URL('../.content/', import.meta.url));
       if (!existsSync(directory)) return;
       watcher = watch(directory, (_event, file) => {
         if (String(file) !== 'published.json') return;

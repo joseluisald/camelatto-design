@@ -14,6 +14,6 @@ const { settings, contact } = Astro.props;
         <p class="contact-description">{contact.description}</p>
         <SocialLinks settings={settings} />
         {settings.whatsapp && <a class="button button--light" href={settings.whatsapp} @click="sendGtmWhatsappEvent()" target="_blank" rel="noopener noreferrer">Conversar pelo WhatsApp<ArrowUpRight size={16} aria-hidden="true" /></a>}
-        {contact.formEnabled !== false && <LeadForm privacyNotice={contact.privacyNotice} privacyVersion={contact.privacyVersion} />}
+        {contact.formEnabled !== false && import.meta.env.PUBLIC_ADMIN_API_URL && <LeadForm privacyNotice={contact.privacyNotice} privacyVersion={contact.privacyVersion} />}
     </div>
 </section>

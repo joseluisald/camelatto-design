@@ -34,3 +34,7 @@ admin/test-results/
 
 # jetbrains setting folder
 .idea/
+
+# Independent admin repository (kept locally during the split).
+/admin/
+.content/

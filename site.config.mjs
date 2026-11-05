@@ -1,4 +1,4 @@
-// A single deployment prefix for Astro, the admin and public APIs.
+// Public site configuration. The admin has its own independent configuration.
 export const siteConfig = {
   site: 'https://demos.jlacode.com.br',
   base: '/camelatto-design',
@@ -7,5 +7,3 @@ export const siteConfig = {
 export function joinBase(base, path = '') {
   return `${base.replace(/\/+$/, '')}/${path.replace(/^\/+/, '')}`;
 }
-
-export const adminBasePath = joinBase(siteConfig.base, 'admin');

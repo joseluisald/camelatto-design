@@ -1,9 +1,8 @@
 ---
 import { ArrowUpRight } from '@lucide/astro';
-import { sitePath } from '@/utils/paths';
 interface Props { privacyNotice?: string; privacyVersion?: string; }
 const { privacyNotice = 'Usaremos seu nome, e-mail e mensagem para responder ao seu contato. Não enviaremos comunicações de marketing sem sua autorização.', privacyVersion = '1' } = Astro.props;
-const endpoint = import.meta.env.PUBLIC_ADMIN_API_URL || sitePath('admin/api/public/leads');
+const endpoint = import.meta.env.PUBLIC_ADMIN_API_URL || '';
 ---
 <form class="lead-form" data-lead-form data-endpoint={endpoint} data-privacy-version={privacyVersion}>
     <h3>Conte um pouco sobre seu projeto</h3>

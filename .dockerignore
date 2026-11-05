@@ -17,3 +17,6 @@ admin/backups
 admin/test-results
 **/*.tsbuildinfo
 **/*.log
+
+admin
+.content
