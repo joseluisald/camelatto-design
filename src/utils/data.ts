@@ -1,10 +1,6 @@
-import settingsData from '@/data/settings.json';
-import faq from '@/data/faq.json';
-import portfolio from '@/data/portfolio.json';
+import { API_URL, API_TIMEOUT_MS } from "astro:env/server";
+import { createContentClient } from "../server/api";
 
-export type SiteSettings = typeof settingsData.site;
-export type Project = (typeof portfolio.projects)[number];
-
-export function getSettings() {
-    return { settings: settingsData.site, faq, portfolio };
-}
+const client = createContentClient(API_URL, API_TIMEOUT_MS);
+export const getSettings = client.content;
+export const getSeo = client.seo;

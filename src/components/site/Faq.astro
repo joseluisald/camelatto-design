@@ -1,0 +1,19 @@
+---
+import type { Faq } from '@/models/content';
+interface Props { items: Faq[]; }
+const { items } = Astro.props;
+---
+{items.length > 0 && <section class="section-border section-space" aria-labelledby="faq-title">
+  <div class="container">
+    <h2 id="faq-title">Perguntas frequentes</h2>
+    {items.map(item => <details class="faq-item">
+      <summary>{item.question}</summary>
+      <p>{item.answer}</p>
+    </details>)}
+  </div>
+</section>}
+<style>
+  .faq-item { padding-block: 1.25rem; border-bottom: 1px solid var(--color-line); }
+  summary { cursor: pointer; font-weight: 600; }
+  .faq-item p { max-width: 75ch; margin-top: 1rem; color: var(--color-muted); }
+</style>

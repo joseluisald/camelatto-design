@@ -1,0 +1,29 @@
+---
+import BrandLogo from '@/components/ui/BrandLogo.astro';
+import '@/styles/global.css';
+interface Props { status: 404 | 503; }
+const { status } = Astro.props;
+const unavailable = status === 503;
+---
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>{unavailable ? 'Temporariamente indisponível' : 'Página não encontrada'} — Camelatto Design</title>
+  </head>
+  <body>
+    <main class="container error-page" id="conteudo">
+      <a href={import.meta.env.BASE_URL} aria-label="Camelatto Design — início"><BrandLogo /></a>
+      <p class="eyebrow">Erro {status}</p>
+      <h1>{unavailable ? 'Voltamos em instantes.' : 'Essa página tomou outro caminho.'}</h1>
+      <p>{unavailable ? 'Não foi possível carregar o conteúdo agora. Tente novamente em alguns instantes.' : 'O endereço pode ter mudado. Você pode voltar e explorar os projetos.'}</p>
+      <a class="button button--primary" href={import.meta.env.BASE_URL}>{unavailable ? 'Tentar novamente' : 'Voltar ao início'}</a>
+    </main>
+  </body>
+</html>
+<style>
+  .error-page { min-height: 100svh; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; gap: 1.5rem; padding-block: 3rem; }
+  h1 { max-width: 18ch; font-size: clamp(2.5rem, 6vw, 5rem); line-height: 1.05; }
+</style>

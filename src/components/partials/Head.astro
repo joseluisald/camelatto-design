@@ -1,59 +1,36 @@
 ---
 import { getImage } from 'astro:assets';
+import { SITE_ENV } from 'astro:env/server';
 import faviconSource from '@/assets/favicon.png';
+import type { SiteSettings, Seo } from '@/models/content';
+import { siteHref, serializeJsonLd } from '@/utils/urls';
+
 interface Props {
-    settings: {
-        name?: string;
-        brand?: string;
-        marca?: string;
-        title?: string;
-        description?: string;
-        keywords?: string;
-        robots?: string;
-        gtm?: string;
-        whatsapp?: string;
-    };
-    sharer?: string | { src: string };
+  settings: SiteSettings;
+  seo?: Seo;
+  sharer?: string | { src: string };
 }
-
-const { settings, sharer } = Astro.props;
-const isProd = import.meta.env.PROD;
-
-const siteURL = Astro.site ?? Astro.url;
+const { settings, seo, sharer } = Astro.props;
+const siteURL = Astro.site!;
 const favicon = await getImage({ src: faviconSource, width: 64, format: 'png' });
 const faviconURL = favicon.src;
-
-const siteName = settings.name || settings.title || 'Design';
-const brandName = settings.brand || siteName;
-const productName = settings.marca ? `${siteName} ${settings.marca}` : siteName;
-
-const title = settings.title ? settings.title : siteName;
-const description = settings.description || '';
-const keywords = settings.keywords || '';
-
-const robots = isProd
-    ? (settings.robots || 'index, follow')
-    : 'noindex, nofollow';
-
-const canonicalURL = new URL(Astro.url.pathname, siteURL);
-const canonicalHref = canonicalURL.href;
-
-const imageSrc = typeof sharer === 'string' ? sharer : sharer?.src;
-const imageUrl = imageSrc ? new URL(imageSrc, siteURL).href : undefined;
-
+const siteName = settings.name;
+const title = seo?.title || settings.title;
+const description = seo?.description ?? settings.description;
+const keywords = seo?.keywords ?? settings.keywords;
+const robots = SITE_ENV === 'production' ? (seo?.robots || settings.robots || 'index, follow') : 'noindex, nofollow';
+const canonicalHref = new URL(Astro.url.pathname, siteURL).href;
+const imageSrc = seo?.ogImage || (typeof sharer === 'string' ? sharer : sharer?.src);
+const safeImage = imageSrc ? siteHref(imageSrc) : '';
+const imageUrl = safeImage ? new URL(safeImage, siteURL).href : undefined;
 const schemaOrg = {
-    "@context": "https://schema.org",
-    "@type": "Product",
-    "name": productName,
-    "description": description,
-    "brand": {
-        "@type": "Brand",
-        "name": brandName
-    }
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: siteName,
+  description,
+  url: new URL(import.meta.env.BASE_URL, siteURL).href,
 };
-
 ---
-
 <head>
     <meta charset="UTF-8" />
     <script is:inline>
@@ -89,5 +66,5 @@ const schemaOrg = {
     <link rel="icon" type="image/png" href={faviconURL} />
 
     <!-- Schema.org (Structured Data para o Google) -->
-    <script type="application/ld+json" set:html={JSON.stringify(schemaOrg)} />
+    <script type="application/ld+json" set:html={serializeJsonLd(schemaOrg)} />
 </head>

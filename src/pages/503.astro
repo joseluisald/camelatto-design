@@ -1,0 +1,7 @@
+---
+import ErrorPage from '@/components/site/ErrorPage.astro';
+Astro.response.status = 503;
+Astro.response.headers.set('Cache-Control', 'no-store');
+Astro.response.headers.set('Retry-After', '60');
+---
+<ErrorPage status={503} />

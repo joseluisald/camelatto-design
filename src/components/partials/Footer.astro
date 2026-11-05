@@ -1,5 +1,6 @@
 ---
-import type { SiteSettings } from '@/utils/data';
+import { siteHref } from "@/utils/urls";
+import type { SiteSettings } from '@/models/content';
 import BrandLogo from '@/components/ui/BrandLogo.astro';
 interface Props { settings: SiteSettings; }
 const { settings } = Astro.props;
@@ -16,7 +17,7 @@ const { settings } = Astro.props;
         </div>
         <div class="footer-meta" data-motion="reveal" data-motion-delay="0.08">
             <p>{settings.role}</p>
-            <p>Desenvolvido por <a href={settings.developer.url} target="_blank" rel="noopener noreferrer">{settings.developer.name} ↗</a></p>
+            <p>Desenvolvido por <a href={siteHref(settings.developer.url) || undefined} target="_blank" rel="noopener noreferrer">{settings.developer.name} ↗</a></p>
         </div>
     </div>
 </footer>

@@ -1,6 +1,6 @@
 ---
 import { ArrowUpRight, Layers, LayoutGrid, Route, Signal, BatteryFull } from '@lucide/astro';
-import type { Project } from '@/utils/data';
+import type { Project } from '@/models/content';
 interface Props { project: Project; index: number; showcase?: boolean; }
 const { project, index, showcase = false } = Astro.props;
 const icons = [Layers, LayoutGrid, Route];

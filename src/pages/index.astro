@@ -9,23 +9,25 @@ import Gallery from '@/components/site/Gallery.astro';
 import About from '@/components/site/About.astro';
 import Contact from '@/components/site/Contact.astro';
 import { projectImages } from '@/utils/project-images';
-import { getSettings } from "@/utils/data.ts";
+import Faq from '@/components/site/Faq.astro';
 
-const { settings, portfolio } = getSettings();
+const { settings, portfolio, faq, seo } = Astro.locals.content!;
 ---
 
 <Layout
         settings={settings}
+        seo={seo}
         sharer={projectImages.mobile}
 >
     <Header settings={settings} navigation={portfolio.navigation} />
 
     <main id="conteudo" tabindex="-1">
         <Banner settings={settings} hero={portfolio.hero} />
-        <Projects projects={portfolio.projects} />
+        <Projects projects={portfolio.projects} stages={portfolio.approach.steps.slice(0, 4).map(step => step.title)} />
         <Approach approach={portfolio.approach} />
         <Gallery gallery={portfolio.gallery} />
         <About about={portfolio.about} settings={settings} />
+        <Faq items={faq} />
         <Contact settings={settings} contact={portfolio.contact} />
     </main>
 

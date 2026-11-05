@@ -1,18 +1,19 @@
 ---
+import { siteHref, safeEmail } from '@/utils/urls';
 import { ArrowUpRight } from '@lucide/astro';
-import type { SiteSettings } from '@/utils/data';
+import type { SiteSettings } from '@/models/content';
 interface Props { settings: SiteSettings; compact?: boolean; }
 const { settings, compact = false } = Astro.props;
 const links = compact ? [
-    { label: 'LinkedIn', href: settings.linkedin },
-    { label: 'Behance', href: settings.behance },
-    { label: 'Currículo', href: settings.resume },
-    { label: 'E-mail', href: settings.email ? `mailto:${settings.email}` : '' },
+    { label: 'LinkedIn', href: siteHref(settings.linkedin) },
+    { label: 'Behance', href: siteHref(settings.behance) },
+    { label: 'Currículo', href: siteHref(settings.resume) },
+    { label: 'E-mail', href: safeEmail(settings.email) },
 ] : [
-    { label: 'LinkedIn', href: settings.linkedin },
-    { label: 'E-mail', href: settings.email ? `mailto:${settings.email}` : '' },
-    { label: 'Currículo (PDF)', href: settings.resume },
-    { label: 'Behance', href: settings.behance },
+    { label: 'LinkedIn', href: siteHref(settings.linkedin) },
+    { label: 'E-mail', href: safeEmail(settings.email) },
+    { label: 'Currículo (PDF)', href: siteHref(settings.resume) },
+    { label: 'Behance', href: siteHref(settings.behance) },
 ];
 ---
 <ul class:list={['social-links', { 'social-links--compact': compact }]} aria-label="Redes e contato">

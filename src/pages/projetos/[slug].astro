@@ -6,20 +6,17 @@ import Header from '@/components/partials/Header.astro';
 import Footer from '@/components/partials/Footer.astro';
 import Contact from '@/components/site/Contact.astro';
 import TagList from '@/components/ui/TagList.astro';
-import { getSettings } from '@/utils/data';
-import type { Project } from '@/utils/data';
+import { siteHref } from '@/utils/urls';
 import { getProjectImage } from '@/utils/project-images';
 
-export function getStaticPaths() {
-    return getSettings().portfolio.projects.map(project => ({ params: { slug: project.slug }, props: { project } }));
-}
-interface Props { project: Project; }
-const { project } = Astro.props;
-const { settings, portfolio } = getSettings();
+const { settings, portfolio } = Astro.locals.content!;
+const project = Astro.locals.project!;
+const seo = Astro.locals.seo;
 const image = getProjectImage(project.image);
-const pageSettings = { ...settings, title: `${project.title} — ${settings.title}`, description: project.description };
+const remoteImage = image ? '' : siteHref(project.image);
+const pageSettings = { ...settings, title: seo?.title || project.title + ' — ' + settings.title, description: seo?.description ?? project.description };
 ---
-<Layout settings={pageSettings} sharer={image}>
+<Layout settings={pageSettings} seo={seo} sharer={image || remoteImage}>
     <Header settings={settings} navigation={portfolio.navigation} />
     <main id="conteudo" tabindex="-1">
         <article class="case-study container">
@@ -29,7 +26,7 @@ const pageSettings = { ...settings, title: `${project.title} — ${settings.titl
             <p class="case-intro">{project.description}</p>
             <p class="project-contribution">Contribuição: {project.contribution}</p>
             <TagList items={project.tags} />
-            <Image class="case-cover" src={image} alt={project.imageAlt} widths={[480, 800, 1200]} sizes="(max-width: 767px) 100vw, 1200px" format="webp" loading="eager" />
+            {image ? <Image class="case-cover" src={image} alt={project.imageAlt} widths={[480, 800, 1200]} sizes="(max-width: 767px) 100vw, 1200px" format="webp" loading="eager" /> : remoteImage && <img class="case-cover" src={remoteImage} alt={project.imageAlt} width="1200" height="800" loading="eager" />}
             <div class="case-content">
                 <section aria-labelledby="challenge"><p class="eyebrow">01 — Contexto</p><h2 id="challenge">O desafio</h2><p>{project.challenge}</p></section>
                 <section aria-labelledby="process"><p class="eyebrow">02 — Método</p><h2 id="process">O processo</h2><p>{project.process}</p></section>

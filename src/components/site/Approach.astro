@@ -1,7 +1,7 @@
 ---
 import SectionHeading from '@/components/ui/SectionHeading.astro';
-import type portfolioData from '@/data/portfolio.json';
-interface Props { approach: typeof portfolioData.approach; }
+import type { Portfolio } from '@/models/content';
+interface Props { approach: Portfolio['approach']; }
 const { approach } = Astro.props;
 ---
 <section class="approach section-border section-space" aria-labelledby="approach-title">

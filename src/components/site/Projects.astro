@@ -1,10 +1,10 @@
 ---
 import PhoneShowcase from './PhoneShowcase.astro';
 import ProjectDetails from './ProjectDetails.astro';
-import portfolio from '@/data/portfolio.json';
-import type { Project } from '@/utils/data';
-interface Props { projects: Project[]; }
-const { projects } = Astro.props;
+
+import type { Project } from '@/models/content';
+interface Props { projects: Project[]; stages: string[]; }
+const { projects, stages } = Astro.props;
 ---
 <section class="projects container" id="projetos" aria-labelledby="projects-title" x-data="featuredProjects">
     <div class="projects-heading" data-motion="reveal">
@@ -16,7 +16,7 @@ const { projects } = Astro.props;
     <div class="featured-layout">
         <PhoneShowcase projects={projects} />
         <div class="featured-details" data-motion="reveal">
-            {projects.map((project, index) => <ProjectDetails project={project} index={index} stages={portfolio.approach.steps.slice(0, 4).map(step => step.title)} />)}
+            {projects.map((project, index) => <ProjectDetails project={project} index={index} stages={stages} />)}
         </div>
     </div>
 </section>

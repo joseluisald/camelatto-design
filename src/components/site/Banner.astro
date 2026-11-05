@@ -2,9 +2,9 @@
 import Button from '@/components/ui/Button.astro';
 import SocialLinks from '@/components/ui/SocialLinks.astro';
 import HeroSymbols from './HeroSymbols.astro';
-import type { SiteSettings } from '@/utils/data';
-import type portfolioData from '@/data/portfolio.json';
-interface Props { settings: SiteSettings; hero: typeof portfolioData.hero; }
+import type { SiteSettings } from '@/models/content';
+import type { Portfolio } from '@/models/content';
+interface Props { settings: SiteSettings; hero: Portfolio['hero']; }
 const { settings, hero } = Astro.props;
 ---
 

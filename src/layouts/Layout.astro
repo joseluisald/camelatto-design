@@ -3,19 +3,20 @@ import Head from '../components/partials/Head.astro';
 import Cursor from '@/components/partials/Cursor.astro';
 
 import '../styles/global.css';
-import type { SiteSettings } from '@/utils/data';
+import type { SiteSettings, Seo } from '@/models/content';
 
 interface Props {
     settings: SiteSettings;
+    seo?: Seo;
     sharer?: string | { src: string };
 }
 
-const { settings, sharer } = Astro.props;
+const { settings, seo, sharer } = Astro.props;
 ---
 
 <!DOCTYPE html>
 <html lang="pt-BR">
-    <Head settings={settings} sharer={sharer} />
+    <Head settings={settings} seo={seo} sharer={sharer} />
 
     <body class="" x-data="app">
         <slot />
