@@ -173,7 +173,7 @@ html[data-banner-theme="dark"] body:has(#hero) .site-header .brand-logo { filter
 .case-cover { width: 100%; margin-block: 48px 64px; border-radius: 6px; }
 .case-content { display: grid; gap: 48px; max-width: 760px; margin-inline: auto; }
 .case-content h2 { margin-block: 12px 20px; }
-.case-content section > p:last-child { color: var(--color-muted); font-size: 18px; white-space: pre-line; }
+.case-content section > p:last-child { color: var(--color-muted); font-size: 18px; }
 .not-found { padding-block: 120px; min-height: 75vh; }
 .not-found h1 { font-size: clamp(3rem, 6vw, 6rem); max-width: 900px; margin-block: 24px; }
 .not-found > p:not(.eyebrow) { color: var(--color-muted); margin-bottom: 32px; }

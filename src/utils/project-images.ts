@@ -4,5 +4,5 @@ import research from '@/assets/projects/pesquisa-ux.jpg';
 
 export const projectImages = { mobile, web, research };
 export function getProjectImage(key: string) {
-    return projectImages[key as keyof typeof projectImages] || projectImages.mobile;
+    return projectImages[key as keyof typeof projectImages];
 }

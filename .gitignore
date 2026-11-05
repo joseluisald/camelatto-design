@@ -16,25 +16,9 @@ pnpm-debug.log*
 # environment variables
 .env
 .env.production
-.env*
-*.env
-*.env.*
-!.env.example
-.next/
-admin/src/generated/
-admin/storage/
-admin/backups/
-admin/test-results/
-.publish/
-.runtime/
-*.tsbuildinfo
 
 # macOS-specific files
 .DS_Store
 
 # jetbrains setting folder
 .idea/
-
-# Independent admin repository (kept locally during the split).
-/admin/
-.content/

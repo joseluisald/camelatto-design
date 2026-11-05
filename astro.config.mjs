@@ -3,17 +3,12 @@ import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 import alpinejs from '@astrojs/alpinejs';
 import compress from 'astro-compress';
-import { siteConfig } from './site.config.mjs';
-import { contentReload } from './scripts/content-reload.mjs';
 
 export default defineConfig({
-  site: siteConfig.site,
-  base: siteConfig.base,
+  site: "https://demos.jlacode.com.br",
+  base: "/camelatto-design",
   vite: {
-    server: {
-      watch: { ignored: ['**/.publish/**', '**/admin/**', '**/dist/**'] }
-    },
-    plugins: [tailwindcss(), contentReload()],
+    plugins: [tailwindcss()],
     build: {
       target: 'es2022',
       minify: 'esbuild',

@@ -3,7 +3,6 @@ import { Menu, X } from '@lucide/astro';
 import BrandLogo from '@/components/ui/BrandLogo.astro';
 import ThemeSelector from '@/components/ui/ThemeSelector.astro';
 import type { SiteSettings } from '@/utils/data';
-import { sitePath, contentLink } from '@/utils/paths';
 interface Props { settings: SiteSettings; navigation: { label: string; href: string }[]; }
 const { settings, navigation } = Astro.props;
 ---
@@ -11,10 +10,10 @@ const { settings, navigation } = Astro.props;
 <header class="site-header" :class="{ 'is-scrolled': headerScrolled, 'is-menu-open': menuOpen }" x-init="headerScrolled = window.scrollY > 12" @scroll.window.passive="headerScrolled = window.scrollY > 12" @keydown.escape.window="menuOpen = false">
     <a href="#conteudo" class="skip-link">Pular para o conteúdo</a>
     <div class="container header-inner" data-motion="down">
-        <a class="wordmark" href={sitePath()} aria-label={`${settings.name} — início`}><BrandLogo /></a>
+        <a class="wordmark" href={import.meta.env.BASE_URL} aria-label={`${settings.name} — início`}><BrandLogo /></a>
         <div class="header-actions">
         <nav class="desktop-nav" aria-label="Principal">
-            {navigation.map(link => <a href={contentLink(link.href)}>{link.label}</a>)}
+            {navigation.map(link => <a href={`${import.meta.env.BASE_URL}${link.href.replace(/^\//, '')}`}>{link.label}</a>)}
         </nav>
         <ThemeSelector />
         <button class="menu-toggle" type="button" @click="menuOpen = !menuOpen" :aria-expanded="menuOpen" aria-controls="mobile-navigation" aria-label="Abrir ou fechar menu">
@@ -24,6 +23,6 @@ const { settings, navigation } = Astro.props;
         </div>
     </div>
     <nav id="mobile-navigation" class="mobile-nav container" aria-label="Navegação móvel" x-cloak x-show="menuOpen" @click="menuOpen = false">
-        {navigation.map(link => <a href={contentLink(link.href)}>{link.label}</a>)}
+        {navigation.map(link => <a href={`${import.meta.env.BASE_URL}${link.href.replace(/^\//, '')}`}>{link.label}</a>)}
     </nav>
 </header>
