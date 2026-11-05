@@ -89,5 +89,5 @@ const schemaOrg = {
     <link rel="icon" type="image/png" href={faviconURL} />
 
     <!-- Schema.org (Structured Data para o Google) -->
-    <script type="application/ld+json" set:html={JSON.stringify(schemaOrg)} />
+    <script type="application/ld+json" set:html={JSON.stringify(schemaOrg).replace(/</g, '\\u003c')} />
 </head>

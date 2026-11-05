@@ -8,10 +8,14 @@ import Approach from '@/components/site/Approach.astro';
 import Gallery from '@/components/site/Gallery.astro';
 import About from '@/components/site/About.astro';
 import Contact from '@/components/site/Contact.astro';
+import Faq from '@/components/site/Faq.astro';
 import { projectImages } from '@/utils/project-images';
 import { getSettings } from "@/utils/data.ts";
 
-const { settings, portfolio } = getSettings();
+const { settings, portfolio, faq } = getSettings();
+const featured = portfolio.projects.filter(p => p.featured != null).sort((a, b) => a.featured! - b.featured!).slice(0, 3);
+// Local JSON remains the initial content until the first admin publication.
+const projects = portfolio.projects.some(p => 'featured' in p) ? featured : portfolio.projects.slice(0, 3);
 ---
 
 <Layout
@@ -22,10 +26,11 @@ const { settings, portfolio } = getSettings();
 
     <main id="conteudo" tabindex="-1">
         <Banner settings={settings} hero={portfolio.hero} />
-        <Projects projects={portfolio.projects} />
+        {projects.length > 0 && <Projects projects={projects} title={portfolio.projectsHeading?.title} stages={portfolio.approach.steps.slice(0, 4).map(s => s.title)} />}
         <Approach approach={portfolio.approach} />
         <Gallery gallery={portfolio.gallery} />
         <About about={portfolio.about} settings={settings} />
+        <Faq items={faq} />
         <Contact settings={settings} contact={portfolio.contact} />
     </main>
 

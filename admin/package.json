@@ -1,0 +1,58 @@
+{
+  "name": "camelatto-admin",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev --port 3001",
+    "build": "prisma generate && next build",
+    "start": "next start --port 3001",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "test": "tsx --test tests/*.test.ts",
+    "test:front": "tsx scripts/test-front-contract.ts",
+    "db:inspect": "tsx --env-file-if-exists=.env scripts/database.ts inspect",
+    "db:setup": "tsx --env-file-if-exists=.env scripts/database.ts setup",
+    "db:backup": "tsx --env-file-if-exists=.env scripts/database.ts backup",
+    "db:restore": "tsx --env-file-if-exists=.env scripts/restore.ts",
+    "admin:user": "tsx --env-file-if-exists=.env scripts/create-user.ts",
+    "admin:invite": "tsx --env-file-if-exists=.env scripts/invite.ts",
+    "content:import": "tsx --env-file-if-exists=.env scripts/import-content.ts",
+    "publish:worker": "tsx --env-file-if-exists=.env scripts/publish-worker.ts",
+    "postinstall": "prisma generate"
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "3.1162.0",
+    "@prisma/client": "6.19.0",
+    "@tailwindcss/postcss": "4.3.4",
+    "better-auth": "1.7.17",
+    "csv-parse": "7.0.3",
+    "csv-stringify": "6.9.0",
+    "dotenv": "18.0.9",
+    "lucide-react": "1.68.0",
+    "mysql2": "3.24.6",
+    "next": "16.4.5",
+    "nodemailer": "10.3.1",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "sharp": "0.35.5",
+    "tailwindcss": "4.3.4",
+    "zod": "4.6.7"
+  },
+  "devDependencies": {
+    "@types/node": "26.6.6",
+    "@types/nodemailer": "8.0.2",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "eslint": "9.39.5",
+    "eslint-config-next": "16.4.5",
+    "prisma": "6.19.0",
+    "tsx": "4.23.15",
+    "typescript": "6.0.3"
+  },
+  "overrides": {
+    "effect": "^3.20.0",
+    "deepmerge-ts": "^8.0.0",
+    "minimatch": "^11.0.1"
+  }
+}

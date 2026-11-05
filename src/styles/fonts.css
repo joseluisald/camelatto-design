@@ -4,7 +4,7 @@
   font-weight: 400;
   font-stretch: normal;
   font-display: swap;
-  src: url('/fonts/portfolio-1.ttf') format('truetype');
+  src: url('../../public/fonts/portfolio-1.ttf') format('truetype');
 }
 @font-face {
   font-family: 'Bricolage Grotesque';
@@ -12,7 +12,7 @@
   font-weight: 500;
   font-stretch: normal;
   font-display: swap;
-  src: url('/fonts/portfolio-2.ttf') format('truetype');
+  src: url('../../public/fonts/portfolio-2.ttf') format('truetype');
 }
 @font-face {
   font-family: 'Bricolage Grotesque';
@@ -20,7 +20,7 @@
   font-weight: 600;
   font-stretch: normal;
   font-display: swap;
-  src: url('/fonts/portfolio-3.ttf') format('truetype');
+  src: url('../../public/fonts/portfolio-3.ttf') format('truetype');
 }
 @font-face {
   font-family: 'Bricolage Grotesque';
@@ -28,7 +28,7 @@
   font-weight: 700;
   font-stretch: normal;
   font-display: swap;
-  src: url('/fonts/portfolio-4.ttf') format('truetype');
+  src: url('../../public/fonts/portfolio-4.ttf') format('truetype');
 }
 @font-face {
   font-family: 'Instrument Sans';
@@ -36,7 +36,7 @@
   font-weight: 400;
   font-stretch: normal;
   font-display: swap;
-  src: url('/fonts/portfolio-5.ttf') format('truetype');
+  src: url('../../public/fonts/portfolio-5.ttf') format('truetype');
 }
 @font-face {
   font-family: 'Instrument Sans';
@@ -44,7 +44,7 @@
   font-weight: 500;
   font-stretch: normal;
   font-display: swap;
-  src: url('/fonts/portfolio-6.ttf') format('truetype');
+  src: url('../../public/fonts/portfolio-6.ttf') format('truetype');
 }
 @font-face {
   font-family: 'Instrument Sans';
@@ -52,13 +52,13 @@
   font-weight: 600;
   font-stretch: normal;
   font-display: swap;
-  src: url('/fonts/portfolio-7.ttf') format('truetype');
+  src: url('../../public/fonts/portfolio-7.ttf') format('truetype');
 }
 @font-face {
   font-family: 'JetBrains Mono';
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url('/fonts/portfolio-8.ttf') format('truetype');
+  src: url('../../public/fonts/portfolio-8.ttf') format('truetype');
 }
 

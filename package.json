@@ -9,7 +9,11 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "admin:dev": "npm --prefix admin run dev",
+    "admin:build": "npm --prefix admin run build",
+    "admin:worker": "npm --prefix admin run publish:worker",
+    "test:deploy": "node --test deploy/*.test.mjs"
   },
   "dependencies": {
     "@alpinejs/collapse": "^3.17.5",

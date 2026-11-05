@@ -1,0 +1,16 @@
+---
+interface Props { items: { id: number; question: string; answer: string }[]; }
+const { items } = Astro.props;
+---
+{items.length > 0 && <section class="faq container section-space section-border" aria-labelledby="faq-title"><h2 id="faq-title">Perguntas frequentes</h2><div class="faq-list">{items.map(item => <details><summary>{item.question}<span aria-hidden="true">+</span></summary><p>{item.answer}</p></details>)}</div></section>}
+<style>
+    .faq { display: grid; grid-template-columns: 0.8fr 1.5fr; gap: 64px; }
+    .faq-list details { border-bottom: 1px solid var(--color-line); padding-block: 20px; }
+    .faq-list details:first-child { padding-top: 0; }
+    summary { cursor: pointer; list-style: none; display: flex; justify-content: space-between; gap: 20px; font-size: 16px; }
+    summary::-webkit-details-marker { display: none; }
+    summary span { color: var(--color-accent); }
+    details[open] summary span { transform: rotate(45deg); }
+    details p { color: var(--color-muted); margin-top: 16px; font-size: 15px; line-height: 1.7; }
+    @media (max-width: 900px) { .faq { grid-template-columns: 1fr; gap: 32px; } }
+</style>

@@ -1,22 +1,21 @@
 ---
 import PhoneShowcase from './PhoneShowcase.astro';
 import ProjectDetails from './ProjectDetails.astro';
-import portfolio from '@/data/portfolio.json';
 import type { Project } from '@/utils/data';
-interface Props { projects: Project[]; }
-const { projects } = Astro.props;
+interface Props { projects: Project[]; title?: string; stages?: string[]; }
+const { projects, title = 'Projetos em destaque', stages = [] } = Astro.props;
 ---
 <section class="projects container" id="projetos" aria-labelledby="projects-title" x-data="featuredProjects">
     <div class="projects-heading" data-motion="reveal">
-        <h2 id="projects-title">Projetos em destaque</h2>
+        <h2 id="projects-title">{title}</h2>
         <div class="project-selectors" role="group" aria-label="Selecionar projeto em destaque">
-            {projects.map((project, index) => <button class:list={['project-selector', { 'is-active': index === 0 }]} type="button" data-cursor-label="Mostrar" @click={`selectProject(${index})`} :class={`{ 'is-active': activeIndex === ${index} }`} aria-label={`Mostrar ${project.title}`} aria-controls={`project-details-${project.id}`} aria-pressed={index === 0 ? 'true' : 'false'} :aria-pressed={`activeIndex === ${index}`}>{project.id}</button>)}
+            {projects.map((project, index) => <button class:list={['project-selector', { 'is-active': index === 0 }]} type="button" data-cursor-label="Mostrar" @click={`selectProject(${index})`} :class={`{ 'is-active': activeIndex === ${index} }`} aria-label={`Mostrar ${project.title}`} aria-controls={`project-details-${project.id}`} aria-pressed={index === 0 ? 'true' : 'false'} :aria-pressed={`activeIndex === ${index}`}>{project.displayId || project.id}</button>)}
         </div>
     </div>
     <div class="featured-layout">
         <PhoneShowcase projects={projects} />
         <div class="featured-details" data-motion="reveal">
-            {projects.map((project, index) => <ProjectDetails project={project} index={index} stages={portfolio.approach.steps.slice(0, 4).map(step => step.title)} />)}
+            {projects.map((project, index) => <ProjectDetails project={project} index={index} stages={project.stages?.length ? project.stages : stages} />)}
         </div>
     </div>
 </section>
@@ -28,6 +27,5 @@ const { projects } = Astro.props;
     .project-selector.is-active { color: var(--color-background); background: var(--color-foreground); }
     .featured-layout { display: grid; grid-template-columns: minmax(0, 1.65fr) minmax(0, 1fr); gap: 48px; align-items: start; }
     .featured-details { padding-top: 20px; min-width: 0; }
-    @media (max-width: 1100px) { .featured-layout { grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 28px; } }
-    @media (max-width: 900px) { .featured-layout { grid-template-columns: minmax(0, 1fr); gap: 24px; } .featured-details { padding: 0; max-width: 640px; } }
+    @media (max-width: 1100px) { .featured-layout { grid-template-columns: minmax(0, 1fr); gap: 32px; } .featured-details { padding: 0; max-width: 640px; } }
 </style>
