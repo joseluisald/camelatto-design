@@ -1,0 +1,22 @@
+20:33:31 [types] Generated 84ms
+20:33:31 [build] output: "static"
+20:33:31 [build] mode: "static"
+20:33:31 [build] directory: D:\Projetos\JLA Code\camellato-design\lp-astro\.publish\cmw2r62n50001h394r9o2g2rk\dist\
+20:33:31 [build] Collecting build info...
+20:33:31 [build] ✓ Completed in 107ms.
+20:33:31 [build] Building static entrypoints...
+20:33:32 [vite] ✓ built in 535ms
+20:33:32 [vite] ✓ built in 124ms
+20:33:32 [build] Rearranging server assets...
+
+ generating static routes 
+Snapshot de conteúdo inválido.
+  Location:
+    D:\Projetos\JLA Code\camellato-design\lp-astro\node_modules\astro\dist\runtime\prerender\static-paths.js:93:61
+  Stack trace:
+    at file:///D:/Projetos/JLA%20Code/camellato-design/lp-astro/.publish/cmw2r62n50001h394r9o2g2rk/dist/.prerender/chunks/data_BR3IfqKe.mjs:378:166
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:660:26)
+    at async Object.getComponentByRoute (file:///D:/Projetos/JLA%20Code/camellato-design/lp-astro/.publish/cmw2r62n50001h394r9o2g2rk/dist/.prerender/prerender-entry.D32s36Z9.mjs:1577:10)
+    at async StaticPaths.getAll (file:///D:/Projetos/JLA%20Code/camellato-design/lp-astro/node_modules/astro/dist/runtime/prerender/static-paths.js:44:19)
+    at async StaticPaths.getAllWithMetadata (file:///D:/Projetos/JLA%20Code/camellato-design/lp-astro/node_modules/astro/dist/runtime/prerender/static-paths.js:63:38)
+Assertion failed: !(handle->flags & UV_HANDLE_CLOSING), file src\win\async.c, line 76

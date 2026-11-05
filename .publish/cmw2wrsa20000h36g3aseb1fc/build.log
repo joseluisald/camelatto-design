@@ -1,0 +1,56 @@
+23:10:36 [types] Generated 265ms
+23:10:36 [build] output: "static"
+23:10:36 [build] mode: "static"
+23:10:36 [build] directory: D:\Projetos\JLA Code\camellato-design\lp-astro\.publish\cmw2wrsa20000h36g3aseb1fc\dist\
+23:10:36 [build] Collecting build info...
+23:10:36 [build] ✓ Completed in 511ms.
+23:10:36 [build] Building static entrypoints...
+23:10:44 [vite] ✓ built in 7.82s
+23:10:45 [vite] ✓ built in 1.02s
+23:10:45 [build] Rearranging server assets...
+
+ generating static routes 
+23:10:45   ├─ /404.html (+24ms) 
+23:10:45   ├─ /projetos/projeto-01/index.html (+8ms) 
+23:10:45   ├─ /projetos/projeto-02/index.html (+6ms) 
+23:10:45   ├─ /projetos/projeto-03/index.html (+5ms) 
+23:10:45   ├─ /index.html (+14ms) 
+23:10:45 ✓ Completed in 113ms.
+
+ generating optimized images 
+23:10:45   ▶ /_astro/Prancheta 4@10x.Cs7j73Bz_ZudLx1.webp (reused cache entry) (+89ms) (1/23)
+23:10:45   ▶ /_astro/favicon.B1ACv27y_Z2pw7lJ.png (reused cache entry) (+89ms) (2/23)
+23:10:45   ▶ /_astro/plataforma-web.B7Mr04Jf_Zv67Po.webp (reused cache entry) (+89ms) (3/23)
+23:10:45   ▶ /_astro/pesquisa-ux.B7aDr6YW_ZWkq5O.webp (reused cache entry) (+89ms) (4/23)
+23:10:45   ▶ /_astro/app-mobile.Dugix9gQ_ZGIzH5.webp (reused cache entry) (+89ms) (5/23)
+23:10:45   ▶ /_astro/Prancheta 6@10x.CYSISadC_2p3YjI.webp (reused cache entry) (+89ms) (6/23)
+23:10:45   ▶ /_astro/plataforma-web.B7Mr04Jf_2gSeqI.webp (reused cache entry) (+19ms) (7/23)
+23:10:45   ▶ /_astro/favicon.B1ACv27y_ZpuIHt.webp (reused cache entry) (+19ms) (8/23)
+23:10:45   ▶ /_astro/pesquisa-ux.B7aDr6YW_1mupJI.webp (reused cache entry) (+19ms) (9/23)
+23:10:45   ▶ /_astro/Prancheta 4@10x.Cs7j73Bz_1zbVJf.webp (reused cache entry) (+20ms) (10/23)
+23:10:45   ▶ /_astro/app-mobile.Dugix9gQ_Zi4UiO.webp (reused cache entry) (+19ms) (11/23)
+23:10:45   ▶ /_astro/Prancheta 6@10x.CYSISadC_2lhkKb.webp (reused cache entry) (+42ms) (12/23)
+23:10:45   ▶ /_astro/favicon.B1ACv27y_1FcorL.webp (reused cache entry) (+50ms) (13/23)
+23:10:45   ▶ /_astro/Prancheta 4@10x.Cs7j73Bz_Z2i9lPe.webp (reused cache entry) (+50ms) (14/23)
+23:10:45   ▶ /_astro/pesquisa-ux.B7aDr6YW_ZT0l61.webp (reused cache entry) (+51ms) (15/23)
+23:10:45   ▶ /_astro/plataforma-web.B7Mr04Jf_DHPVh.webp (reused cache entry) (+52ms) (16/23)
+23:10:45   ▶ /_astro/app-mobile.Dugix9gQ_Z2fGsgc.webp (reused cache entry) (+51ms) (17/23)
+23:10:45   ▶ /_astro/favicon.B1ACv27y_Z1Ve2zY.webp (reused cache entry) (+9ms) (18/23)
+23:10:45   ▶ /_astro/Prancheta 6@10x.CYSISadC_FH3NV.webp (reused cache entry) (+35ms) (19/23)
+23:10:45   ▶ /_astro/app-mobile.Dugix9gQ_EJvcX.webp (reused cache entry) (+10ms) (20/23)
+23:10:45   ▶ /_astro/pesquisa-ux.B7aDr6YW_ZLxNUL.webp (reused cache entry) (+12ms) (21/23)
+23:10:45   ▶ /_astro/favicon.B1ACv27y_Zb831E.webp (reused cache entry) (+11ms) (22/23)
+23:10:45   ▶ /_astro/favicon.B1ACv27y_1Ru89B.webp (reused cache entry) (+107ms) (23/23)
+23:10:45 ✓ Completed in 287ms.
+
+23:10:45 [build] ✓ Completed in 9.46s.
+(-45 Bytes)	0.24% reduction in D:/Projetos/JLA Code/camellato-design/lp-astro/.publish/cmw2wrsa20000h36g3aseb1fc/dist/_astro/index.DSO5dA6b.css
+(-999 Bytes)	3.66% reduction in D:/Projetos/JLA Code/camellato-design/lp-astro/.publish/cmw2wrsa20000h36g3aseb1fc/dist/_astro/Footer.zF1HK11x.css
+✓ Successfully compressed a total of 2 CSS files for 1.02 KB.
+23:10:48 [build] Waiting for integration "astro-compress", hook "astro:build:done"...
+(-7.07 KB)	54.82% reduction in D:/Projetos/JLA Code/camellato-design/lp-astro/.publish/cmw2wrsa20000h36g3aseb1fc/dist/favicon.png
+✓ Successfully compressed a total of 1 Image file for 7.07 KB.
+(-459 Bytes)	0.28% reduction in D:/Projetos/JLA Code/camellato-design/lp-astro/.publish/cmw2wrsa20000h36g3aseb1fc/dist/_astro/page.DhQBqzIS.js
+✓ Successfully compressed a total of 1 JavaScript file for 459 Bytes.
+23:10:51 [build] 5 page(s) built in 15.80s
+23:10:51 [build] Complete!
